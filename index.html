@@ -600,6 +600,21 @@
             .chart-card, .action-section { box-shadow: none; border: 1px solid #ccc; page-break-inside: avoid; }
             .narrative-text { display: block !important; }
         }
+    
+        .ai-badge {
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.6rem;
+            background-color: var(--surface-bg);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            margin-left: 0.5rem;
+            font-weight: 500;
+            vertical-align: text-top;
+            letter-spacing: 0.02em;
+        }
     </style>
 </head>
 <body>
@@ -675,7 +690,7 @@
         </div>
 
         <div class="highlight-box narrative-text">
-            <h3>Skolproblem eller individproblem?</h3>
+            <h3>Skolproblem eller individproblem? <span class="ai-badge" title="Denna text är kurerad genom AI-dialog med human-in-the-loop-validering.">✦ AI & Human Feedback</span></h3>
             <p>Datan kan inte avgöra vem som <em>bär skulden</em>. Men den är extremt tydlig med vilken <strong>verktygslåda</strong> skolan bör öppna först. Eftersom 64% av alla problem utgörs av laddare och pennor/sudd, uppstår bristerna primärt där infrastruktur (el) och billigt förbrukningsmaterial saknas.</p>
         </div>
 
@@ -758,7 +773,7 @@
         <!-- Proposed Actions -->
         <div class="action-section">
             <div class="action-header">
-                <h2 style="font-size: 1.8rem; margin-bottom: 0.5rem;">Rekommenderad Åtgärdstrappa</h2>
+                <h2 style="font-size: 1.8rem; margin-bottom: 0.5rem; display:flex; align-items:center; gap:0.5rem;">Rekommenderad Åtgärdstrappa <span class="ai-badge">✦ AI-genererad analys & Human Feedback</span></h2>
                 <p style="color: var(--text-secondary);">En sekventiell modell: Fixa systemet först, hantera individen sen.</p>
             </div>
 
@@ -830,7 +845,7 @@
 
         <!-- Methodology -->
         <div class="method-box narrative-text">
-            <h3 style="font-size: 1.1rem; border-bottom: 2px solid var(--border-subtle); padding-bottom: 0.5rem; margin-bottom: 1rem;">Metod & Validitet</h3>
+            <h3 style="font-size: 1.1rem; border-bottom: 2px solid var(--border-subtle); padding-bottom: 0.5rem; margin-bottom: 1rem; display:flex; align-items:center;">Metod & Validitet <span class="ai-badge">✦ AI-genererad analys & Human Feedback</span></h3>
             <p style="font-size: 0.9rem; margin-bottom: 1rem;">Studien bygger på en enda observationsdag. Vi saknar data för faktisk närvaro.</p>
             
             <div class="method-grid">
@@ -857,14 +872,14 @@
     <div class="modal-overlay" id="modal-two-problems" onclick="closeModalOutside(event)">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('modal-two-problems')">×</button>
-            <h3>Vi har egentligen bara två problem</h3>
+            <h3>Vi har egentligen bara två problem <span class="ai-badge">✦ AI-genererad analys & Human Feedback</span></h3>
             <p class="modal-subtitle">Om vi grupperar materialtyperna efter lösningstyp framträder ett tydligt mönster.</p>
             <div style="max-width: 360px; margin: 0 auto;"><canvas id="chart-modal-donut"></canvas></div>
             <div class="modal-text">
                 <p><strong>Digital utrustning</strong> (Laddare 80 + Dator 25 = 105, dvs 37%) löses med <strong>laddinfrastruktur</strong> i klassrummen. En oladdad dator och en saknad laddare är samma problem.</p>
                 <p><strong>Skrivmaterial</strong> (Penna 56 + Sudd 48 = 104, dvs 36%) löses med <strong>materiallådor</strong> i salarna.</p>
                 <p>Tillsammans utgör dessa två kategorier <strong>73% av alla 287 brister</strong>. Resterande (Läsbok 14%, Mapp 7%, Övrigt 6%) är betydligt svårare att åtgärda strukturellt men också avsevärt mindre.</p>
-                <p style="font-size: 0.75rem; color: var(--text-secondary); font-style: italic; margin-top: 1.5rem; text-align: center;">Sammanställning och analys är AI-genererad.</p>
+                
             </div>
         </div>
     </div>
@@ -873,7 +888,7 @@
     <div class="modal-overlay" id="modal-significance" onclick="closeModalOutside(event)">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('modal-significance')">×</button>
-            <h3>Är mognadskurvan statistiskt säkerställd?</h3>
+            <h3>Är mognadskurvan statistiskt säkerställd? <span class="ai-badge">✦ AI-genererad analys & Human Feedback</span></h3>
             <p class="modal-subtitle">Vi körde fyra oberoende statistiska test på klassnivådata.</p>
             <table class="stat-table">
                 <thead><tr><th>Test</th><th>Resultat</th><th>p-värde</th><th>Signifikant?</th></tr></thead>
@@ -889,7 +904,7 @@
                 <p><strong>Cohen's d = 1.51</strong> (åk 7 vs åk 9) – en <em>stor</em> effektstorlek. Den nedåtgående trenden är signifikant (Spearman, p = 0.04).</p>
                 <p>Att tregrupp-jämförelsen inte når signifikans beror på att <strong>åk 8 har enorm intern spridning</strong> (SD = 12.3, jfr åk 7: SD = 3.9) – orsakad av en enda extremklass (BJKe1-24 = 41 brister). Utan den klassen blir hela analysen signifikant (p = 0.04).</p>
                 <p><strong>Slutsats:</strong> Skillnaden mellan sjuor och nior är statistiskt säkerställd. Mognadskurvan är verklig.</p>
-                <p style="font-size: 0.75rem; color: var(--text-secondary); font-style: italic; margin-top: 1.5rem; text-align: center;">Statistisk beräkning och analys är AI-genererad.</p>
+                
             </div>
         </div>
     </div>
@@ -898,7 +913,7 @@
     <div class="modal-overlay" id="modal-outlier" onclick="closeModalOutside(event)">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('modal-outlier')">×</button>
-            <h3>Outlier-analys: BJKe1-24</h3>
+            <h3>Outlier-analys: BJKe1-24 <span class="ai-badge">✦ AI-genererad analys & Human Feedback</span></h3>
             <p class="modal-subtitle">En enda klass står för 14% av alla brister och driver hela arbetslagsskillnaden.</p>
             <div style="max-width: 500px; margin: 0 auto;"><canvas id="chart-modal-outlier"></canvas></div>
             <div class="modal-text">
@@ -912,7 +927,7 @@
                     </tbody>
                 </table>
                 <p>Utan BJKe1-24 försvinner nästan hela arbetslagsskillnaden. Det betyder att <strong>Lag E:s höga siffror troligen inte beror på ett kulturproblem</strong> – utan på en enda klass med en specifik situation (möjligen en grupp elever med trasig/saknad laddningsutrustning).</p>
-                <p style="font-size: 0.75rem; color: var(--text-secondary); font-style: italic; margin-top: 1.5rem; text-align: center;">Outlier-beräkning och analys är AI-genererad.</p>
+                
             </div>
         </div>
     </div>
@@ -921,7 +936,7 @@
     <div class="modal-overlay" id="modal-amne-breakdown" onclick="closeModalOutside(event)">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('modal-amne-breakdown')">×</button>
-            <h3>Ämnesdjupdykning: Vad fattas var?</h3>
+            <h3>Ämnesdjupdykning: Vad fattas var? <span class="ai-badge">✦ AI-genererad analys & Human Feedback</span></h3>
             <p class="modal-subtitle">En uppdelning av de saknade materialtyperna (totalt antal) för de mest drabbade ämnena.</p>
             <div style="max-width: 600px; margin: 0 auto;"><canvas id="chart-modal-amne-breakdown"></canvas></div>
             <div class="modal-text">
@@ -930,7 +945,7 @@
                 <p><strong>Svenska som andraspråk (SVA):</strong> Här saknas nästan uteslutande skrivmaterial (penna/sudd). <em>Ingen digital belastning!</em> Detta är sannolikt små grupper som inte använder dator lika mycket under dessa lektioner.</p>
                 <p><strong>Hem- och Konsumentkunskap (HKK):</strong> Extremt hög frekvens av saknade miniräknare/datorer (10 st) och läsböcker (11 st) under sina 4 lektioner. Varför?</p>
                 <p><strong>Idrott och Hälsa (IDH):</strong> Kategorin "Övrigt" (17 st) är totalt dominerande. Detta är nästan garanterat glömda idrottskläder/handdukar som lärarna registrerat i det fria textfältet.</p>
-                <p style="font-size: 0.75rem; color: var(--text-secondary); font-style: italic; margin-top: 1.5rem; text-align: center;">Ämnesanalys och slutsatser är AI-genererade.</p>
+                
             </div>
         </div>
     </div>
