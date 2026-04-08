@@ -637,25 +637,33 @@
             <p>Men när vi bryter ner datan framträder ett annat mönster. En bild av en mognadsprocess som skolan kan antingen motarbeta med förmaningar, eller stötta med struktur.</p>
         </div>
 
+        <!-- Jämförelse Toggle -->
+        <div style="display: flex; justify-content: flex-end; margin-bottom: 1rem;">
+            <button id="btn-toggle-outlier" onclick="toggleOutlier()" style="background-color: var(--surface-card); border: 1px solid var(--border-color); color: var(--text-primary); padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 1px 2px rgba(0,0,0,0.05); transition: all 0.2s;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                <span>Inkludera Lag E-outlier (Klass Bje1-24)</span>
+            </button>
+        </div>
+
         <!-- KPI Strip -->
         <div class="kpi-strip">
             <div class="kpi-card">
-                <div class="kpi-value" style="color: var(--accent-indigo)">287</div>
+                <div id="kpi-tot" class="kpi-value" style="color: var(--accent-indigo)">287</div>
                 <div class="kpi-label">Missade objekt</div>
                 <div class="kpi-sublabel">Registrerade materialbrister</div>
             </div>
             <div class="kpi-card">
-                <div class="kpi-value" style="color: var(--accent-cyan)">~3 000</div>
+                <div id="kpi-elev" class="kpi-value" style="color: var(--accent-cyan)">~3 000</div>
                 <div class="kpi-label">Elevtillfällen</div>
                 <div class="kpi-sublabel">438 elever × sina lektioner</div>
             </div>
             <div class="kpi-card">
-                <div class="kpi-value" style="color: var(--accent-violet)">~9,6</div>
+                <div id="kpi-frek" class="kpi-value" style="color: var(--accent-violet)">~9,6</div>
                 <div class="kpi-label">Missar / 100 elevtillfällen</div>
                 <div class="kpi-sublabel">Över 90% av tillfällena fungerade</div>
             </div>
             <div class="kpi-card">
-                <div class="kpi-value" style="color: var(--accent-rose)">80</div>
+                <div id="kpi-ladd" class="kpi-value" style="color: var(--accent-rose)">80</div>
                 <div class="kpi-label">Oladdade datorer</div>
                 <div class="kpi-sublabel">28% av alla brister</div>
             </div>
@@ -1313,6 +1321,70 @@
                 });
             }
         });
+    </script>
+
+    <script>
+        // Toggle Logic for Outlier
+        let outlierIncluded = true;
+        
+        const dataConfig = {
+            with: {
+                kpiTot: '287', kpiElev: '~3 000', kpiFrek: '~9,6', kpiLadd: '80',
+                mat: [80, 56, 48, 39, 25, 21, 18],
+                ak: [19.0, 15.1, 11.2],
+                lag: [13.5, 15.0, 15.3, 11.2, 20.5],
+                amne: [5.3, 4.6, 2.8, 2.8, 2.6, 2.1, 1.7, 0.8, 0.7, 0.4, 0.3],
+                amneBg: function(ctx) { return alphaColor(colors.indigo, 0.6); } // We will reuse the original logic
+            },
+            without: {
+                kpiTot: '246', kpiElev: '~2 800', kpiFrek: '~8,8', kpiLadd: '58',
+                mat: [58, 53, 40, 36, 21, 21, 17],
+                ak: [19.0, 12.3, 11.2],
+                lag: [13.5, 15.0, 15.3, 11.2, 13.6],
+                amne: [5.3, 3.7, 2.8, 2.8, 2.1, 2.0, 1.4, 0.8, 0.7, 0.4, 0.3]
+            }
+        };
+
+        function toggleOutlier() {
+            outlierIncluded = !outlierIncluded;
+            const btn = document.getElementById('btn-toggle-outlier');
+            const state = outlierIncluded ? dataConfig.with : dataConfig.without;
+            
+            // Validate Chart.js availability
+            if (typeof Chart === 'undefined') return;
+
+            // 1. Update UI Button
+            if (outlierIncluded) {
+                btn.style.backgroundColor = 'var(--surface-card)';
+                btn.style.borderColor = 'var(--border-color)';
+                btn.style.color = 'var(--text-primary)';
+                btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg><span>Inkludera Lag E-outlier (Klass Bje1-24)</span>`;
+            } else {
+                btn.style.backgroundColor = 'var(--accent-amber)';
+                btn.style.borderColor = 'var(--accent-amber)';
+                btn.style.color = '#fff';
+                btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg><span>Exkluderar Bje1-24</span>`;
+            }
+
+            // 2. Update KPIs
+            document.getElementById('kpi-tot').innerText = state.kpiTot;
+            document.getElementById('kpi-elev').innerText = state.kpiElev;
+            document.getElementById('kpi-frek').innerText = state.kpiFrek;
+            document.getElementById('kpi-ladd').innerText = state.kpiLadd;
+
+            // 3. Update Charts using Chart.getChart
+            const cMat = Chart.getChart('chart-material');
+            if (cMat) { cMat.data.datasets[0].data = state.mat; cMat.update(); }
+
+            const cAk = Chart.getChart('chart-arskurs');
+            if (cAk) { cAk.data.datasets[0].data = state.ak; cAk.update(); }
+
+            const cLag = Chart.getChart('chart-arbetslag');
+            if (cLag) { cLag.data.datasets[0].data = state.lag; cLag.update(); }
+
+            const cAmne = Chart.getChart('chart-amne');
+            if (cAmne) { cAmne.data.datasets[0].data = state.amne; cAmne.update(); }
+        }
     </script>
 </body>
 </html>
